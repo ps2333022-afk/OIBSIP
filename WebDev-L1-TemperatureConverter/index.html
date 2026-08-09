@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <p>Convert temperature between Celsius, Fahrenheit, and Kelvin.</p>
+
+        <div class="converter-box">
+            <label for="temperature">Enter Temperature</label>
+            <input type="number" id="temperature" placeholder="Enter value">
+
+            <label for="unit">Select Unit</label>
+            <select id="unit">
+                <option value="celsius">Celsius (°C)</option>
+                <option value="fahrenheit">Fahrenheit (°F)</option>
+                <option value="kelvin">Kelvin (K)</option>
+            </select>
+
+            <button onclick="convertTemperature()">Convert</button>
+
+            <div class="result" id="result">
+                Enter a value and click Convert.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function convertTemperature() {
+            const input = document.getElementById("temperature").value;
+            const unit = document.getElementById("unit").value;
+            const result = document.getElementById("result");
+
+            if (input === "") {
+                result.innerHTML = "Please enter a temperature value.";
+                return;
+            }
+
+            const temp = parseFloat(input);
+            let celsius, fahrenheit, kelvin;
+
+            if (unit === "celsius") {
+                celsius = temp;
+                fahrenheit = (temp * 9 / 5) + 32;
+                kelvin = temp + 273.15;
+            } else if (unit === "fahrenheit") {
+                celsius = (temp - 32) * 5 / 9;
+                fahrenheit = temp;
+                kelvin = celsius + 273.15;
+            } else {
+                celsius = temp - 273.15;
+                fahrenheit = (celsius * 9 / 5) + 32;
+                kelvin = temp;
+            }
+
+            result.innerHTML = `
+                <strong>Converted Values:</strong><br><br>
+                Celsius: ${celsius.toFixed(2)} °C<br>
+                Fahrenheit: ${fahrenheit.toFixed(2)} °F<br>
+                Kelvin: ${kelvin.toFixed(2)} K
+            `;
+        }
+    </script>
+
+</body>
+</html>
